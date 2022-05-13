@@ -3,11 +3,16 @@ using Payment_Service.Models;
 
 namespace Payment_Service.Data.RepositoryImpl
 {
-    public class CustomerRepository : ICustomerRepository
+    public class CustomerRepository : BaseRepository,ICustomerRepository
     {
+        public CustomerRepository(ApplicationDbContext applicationDbContext) : base(applicationDbContext)
+        {
+        }
+
         public Customer Create(Customer customer)
         {
-            throw new NotImplementedException();
+           db.Customers.Add(customer);
+            return customer;
         }
 
         public Customer Get(Guid customerId)

@@ -3,8 +3,12 @@ using System.Transactions;
 
 namespace Payment_Service.Data.RepositoryImpl
 {
-    public class TransactionRepository : ITransactionRepository
+    public class TransactionRepository :BaseRepository, ITransactionRepository
     {
+        public TransactionRepository(ApplicationDbContext applicationDbContext) : base(applicationDbContext)
+        {
+        }
+
         public Transaction Create(Transaction transaction)
         {
             throw new NotImplementedException();

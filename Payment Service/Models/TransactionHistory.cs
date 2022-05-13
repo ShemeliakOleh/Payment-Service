@@ -12,7 +12,7 @@
 
         public string Message { get; set; }
 
-        public JsonContent ResultJson { get; set; }
+        public string ResultJson { get; set; }
 
         public double Amount { get; set; }
     }

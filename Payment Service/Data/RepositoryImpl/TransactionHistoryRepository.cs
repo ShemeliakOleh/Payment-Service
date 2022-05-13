@@ -3,8 +3,12 @@ using Payment_Service.Models;
 
 namespace Payment_Service.Data.RepositoryImpl
 {
-    public class TransactionHistoryRepository : ITransactionHistoryRepository
+    public class TransactionHistoryRepository :BaseRepository,ITransactionHistoryRepository
     {
+        public TransactionHistoryRepository(ApplicationDbContext applicationDbContext) : base(applicationDbContext)
+        {
+        }
+
         public TransactionHistory Create(TransactionHistory transactionHistory)
         {
             throw new NotImplementedException();
