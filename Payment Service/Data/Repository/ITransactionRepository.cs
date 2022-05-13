@@ -4,8 +4,8 @@ namespace Payment_Service.Data.Repository
 {
     public interface ITransactionRepository
     {
-        public Transaction GetTransaction(string transactionName);
-        public Transaction CreateTransaction(Transaction transaction);
-        public Transaction UpdateTransaction(Transaction transaction);
+        public Transaction Get(string transactionName);
+        public Transaction Create(Transaction transaction);
+        public Transaction Update(Transaction transaction);
     }
 }

@@ -4,8 +4,8 @@ namespace Payment_Service.Data.Repository
 {
     public interface ICustomerRepository
     {
-        public Customer GetCustomer(Guid customerId);
-        public Customer CreateCustomer(Customer customer);
+        public Customer Get(Guid customerId);
+        public Customer Create(Customer customer);
 
     }
 }
