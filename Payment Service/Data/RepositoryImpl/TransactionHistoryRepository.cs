@@ -11,12 +11,15 @@ namespace Payment_Service.Data.RepositoryImpl
 
         public TransactionHistory Create(TransactionHistory transactionHistory)
         {
-            throw new NotImplementedException();
+            db.TransactionHistories.Add(transactionHistory);
+            db.SaveChanges();
+            return transactionHistory;
+
         }
 
-        public TransactionHistory Get(string transactionHistoryName)
+        public TransactionHistory Get(string name)
         {
-            throw new NotImplementedException();
+            return db.TransactionHistories.FirstOrDefault(x=>x.Name == name);
         }
     }
 }

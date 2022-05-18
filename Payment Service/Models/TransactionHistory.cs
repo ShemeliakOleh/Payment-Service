@@ -1,19 +1,16 @@
-﻿namespace Payment_Service.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Payment_Service.Models
 {
     public class TransactionHistory
     {
-        public Guid Id { get; set; }
+        [Key]
+        public string Name { get; set; }
 
-        public Transaction Transaction { get; set; }
-
-        public string TransactionType { get; set; }
+        public TransactionPowerApps Transaction { get; set; }
 
         public string Result { get; set; }
 
         public string Message { get; set; }
-
-        public string ResultJson { get; set; }
-
-        public double Amount { get; set; }
     }
 }

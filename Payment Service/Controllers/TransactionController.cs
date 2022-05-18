@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Payment_Service.Data;
+using Payment_Service.Models;
+using Payment_Service.Services;
 
 namespace Payment_Service.Controllers
 {
@@ -7,16 +9,30 @@ namespace Payment_Service.Controllers
     [ApiController]
     public class TransactionController : Controller
     {
-        public DataManager data { get; set; }
-        public TransactionController(DataManager dataManager)
+
+        private readonly TransactionPowerAppsService _transactionService;
+        private readonly TransactionHistoryService _transactionHistoryService;
+        public TransactionController(TransactionPowerAppsService transactionService, TransactionHistoryService transactionHistoryService)
         {
-            this.data = dataManager;
+            _transactionService = transactionService;
+            _transactionHistoryService = transactionHistoryService;
         }
 
-        [HttpGet("Create")]
-        public IActionResult Create()
+        [HttpPost("Create")]
+        public IActionResult Create(TransactionPowerApps transaction)
         {
-            return View();
+            var result = _transactionService.Create(transaction);
+            return Ok(result);
+        }
+
+        [HttpGet("Process")]
+        public IActionResult Process(string transactionId)
+        {
+           var transactionHistory = _transactionService.ProcessTransaction(transactionId);
+
+           transactionHistory = _transactionHistoryService.Create(transactionHistory);
+
+           return Ok(transactionHistory);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Payment_Service.Data;
 using Payment_Service.Models;
+using Payment_Service.Services;
 
 namespace Payment_Service.Controllers
 {
@@ -8,19 +9,26 @@ namespace Payment_Service.Controllers
     [ApiController]
     public class CustomerController : Controller
     {
-        public DataManager data { get; set; }
-
-        public CustomerController(DataManager dataManager)
+        private readonly CustomerService _customerService;
+        public CustomerController(CustomerService customerService)
         {
-            this.data = dataManager;
+            _customerService = customerService;
         }
 
-      
-        [HttpGet("Create")]
-        public IActionResult Create()
+        [HttpPost("Create")]
+        public IActionResult Create(Customer customer)
         {
-           
-            return Ok();
+           var result = _customerService.Create(customer);
+
+           return Ok(result.Id);
+        }
+
+        [HttpGet("IsRegistered")]
+        public IActionResult IsRegistered(string customerId)
+        {
+            var result = _customerService.IsRegistered(customerId);
+
+            return Ok(result);
         }
     }
 }

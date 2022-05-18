@@ -11,7 +11,7 @@ namespace Payment_Service.Data
         }
 
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<TransactionPowerApps> Transactions { get; set; }
         public DbSet<TransactionHistory> TransactionHistories { get; set; }
 
     }

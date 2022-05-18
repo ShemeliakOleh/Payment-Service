@@ -4,7 +4,7 @@ namespace Payment_Service.Data.Repository
 {
     public interface ITransactionHistoryRepository
     {
-        public TransactionHistory Get(string transactionHistoryName);
+        public TransactionHistory Get(string id);
         public TransactionHistory Create(TransactionHistory transactionHistory);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Payment_Service.Data.Repository;
+using Payment_Service.Models;
 using System.Transactions;
 
 namespace Payment_Service.Data.RepositoryImpl
@@ -9,19 +10,47 @@ namespace Payment_Service.Data.RepositoryImpl
         {
         }
 
-        public Transaction Create(Transaction transaction)
+        public TransactionPowerApps Create(TransactionPowerApps transaction)
         {
-            throw new NotImplementedException();
+            db.Transactions.Add(transaction);
+            db.SaveChanges();
+            return transaction;
         }
 
-        public Transaction Get(string transactionName)
+        public TransactionPowerApps Get(string id)
         {
-            throw new NotImplementedException();
+           return db.Transactions.FirstOrDefault(x=>x.Id == id);
         }
 
-        public Transaction Update(Transaction transaction)
+        public TransactionResult Process(string id)
         {
-            throw new NotImplementedException();
+            TransactionResult result = new TransactionResult();
+
+            using (var dbContextTransaction = db.Database.BeginTransaction())
+            {
+
+                try
+                {
+                    var transactionFromDb = db.Transactions.FirstOrDefault(x => x.Id == id);
+
+                    if (transactionFromDb != null)
+                    {
+                        transactionFromDb.Completed = true;
+                        db.SaveChanges();
+                    }
+
+                    dbContextTransaction.Commit();
+                    result.IsSuccessfulProcess = true;
+                }
+                catch (Exception ex)
+                {
+                    dbContextTransaction.Rollback();
+                    result.IsSuccessfulProcess = false;
+                    result.ErrorMessage = ex.Message;
+                }
+
+            }
+            return result;
         }
     }
 }

@@ -5,6 +5,7 @@ namespace Payment_Service.Data.RepositoryImpl
 {
     public class CustomerRepository : BaseRepository,ICustomerRepository
     {
+
         public CustomerRepository(ApplicationDbContext applicationDbContext) : base(applicationDbContext)
         {
         }
@@ -12,12 +13,13 @@ namespace Payment_Service.Data.RepositoryImpl
         public Customer Create(Customer customer)
         {
            db.Customers.Add(customer);
+            db.SaveChanges();
             return customer;
         }
 
-        public Customer Get(Guid customerId)
+        public Customer Get(string customerId)
         {
-            throw new NotImplementedException();
+            return db.Customers.FirstOrDefault(x=>x.Id == customerId);
         }
     }
 }
